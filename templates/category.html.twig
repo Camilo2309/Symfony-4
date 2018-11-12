@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1><a href="{{ path('category_show', {'id': category.id }) }}">{{category.name}}</a></h1>
+{% endblock %}
+
+
