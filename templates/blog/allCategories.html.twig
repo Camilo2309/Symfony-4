@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>All Categories</h1>
+    {% for category in categories %}
+        <div>
+            <h2>{{ category.name }}</h2>
+        </div>
+    {% endfor %}
+     <h2>Create category :</h2>
+
+    {{ form_start(formCategory) }}
+
+    {{ form_row(formCategory.name, {'attr': {'placeholder': "Nom de la catégorie"}} ) }}
+
+    <button type="submit" class="btn btn-success">Ajouter une catégorie</button>
+
+    {{ form_end(formCategory) }}
+
+
+
+
+
+
+{% endblock %}
