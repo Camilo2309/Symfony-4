@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <h1>{% if editMode  %}
+        Modifier mon produit
+        {% else %}
+        Création d'un Produit !
+        {% endif %}
+    </h1>
+
+    {{ form_start(formArticle) }} {# <---- pas obligatoire #}
+
+    {{ form_row(formArticle.title, {'attr': {'placeholder': "Titre de l'article" }}) }}
+    {{ form_row(formArticle.category)}}
+    {{ form_row(formArticle.content, {'attr': {'placeholder': "Description de l article" }}) }}
+    {{ form_row(formArticle.image, {'attr': {'placeholder': "URL de l'image" }}) }}
+
+    <button type="submit" class="btn btn-success">
+        {% if editMode %}
+            Enregistrer les modifications
+        {% else %}
+            Ajouter mon produit
+        {% endif %}
+
+        </button>
+
+    {{ form_end(formArticle) }} {# <---- pas obligatoire #}
+
+
+{% endblock %}

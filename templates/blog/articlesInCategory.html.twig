@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <h1>{{ category.name }}</h1>
+
+    <section class="articles">
+
+        {% for article in category.articles %}
+            <article>
+                <h4>{{ article.title }}</h4>
+                <div class="metadata"> Posté le {{ article.createdAt | date('d/m/Y') }}
+                    à {{ article.createdAt | date('H:i') }} {# la tabulation | permet de donné la date et l heure exacte #}
+                    dans la catgorie  {{ article.category.name }}</div>
+                <div class="content">
+                    <img src="{{ article.image }}" alt="">
+                    <p>{{ article.content | raw }}</p> {# affiche le contenu brut #}
+                    <a href="{{ path('show_article', {'id': article.id}) }}" class="btn btn-primary">Lire la suite</a>
+                </div>
+            </article>
+        {% endfor %}
+    </section>
+{% endblock %}
