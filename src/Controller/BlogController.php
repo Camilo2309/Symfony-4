@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Form\ArticleType;
+use App\Form\CategoryType;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -77,7 +78,7 @@ class BlogController extends AbstractController
 
 
     /**
-     * @Route("blog/new", name="blog_create")
+     * @Route("blog/new", name="new_article")
      * @Route("/blog/{id}/edit", name="blog_edit")
      * @param Article|null $article
      * @param Request $request
@@ -116,6 +117,41 @@ class BlogController extends AbstractController
             'formArticle' => $form->createView(),
 
             'editMode' => $article->getId() !== null
+        ]);
+    }
+
+
+
+    /**
+     * @Route("blog/new/category", name="new_category")
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @throws \Exception
+     */
+    public function formCategory(Category $category = null, Request $request, ObjectManager $manager)
+    {
+
+        $category = new Category();
+
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($category);
+
+            $manager->flush();
+
+            return $this->redirectToRoute('home', ['id' => $category->getId()]);
+        }
+
+
+        return $this->render('blog/formCategory.html.twig', [
+
+            'formCategory' => $form->createView(),
+
         ]);
     }
 
