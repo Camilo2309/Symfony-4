@@ -12,4 +12,21 @@
     eos expedita hic maiores molestias placeat, quas quibusdam, quis quo recusandae reiciendis reprehenderit tempora
     totam.
 </p>
+ <hr>
+
+    <section class="articles">
+        {% for article in articles %}
+            <article>
+                <h2>{{ article.title }}</h2>
+                <div class="metadata"> Posté le {{ article.createdAt | date('d/m/Y') }}
+                    à {{ article.createdAt | date('H:i') }} {# la tabulation | permet de donné la date et l heure exacte #}
+                    dans la catgorie  {{ article.category.name }}</div>
+                <div class="content">
+                    <img src="{{ article.image }}" alt="">
+                    <p>{{ article.content | raw }}</p> {# affiche le contenu brut #}
+                    <a href="{{ path('show_article', {'id': article.id}) }}" class="btn btn-primary">Lire la suite</a>
+                </div>
+            </article>
+        {% endfor %}
+    </section>
 {% endblock %}

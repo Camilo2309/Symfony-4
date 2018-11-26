@@ -20,9 +20,13 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home()
+    public function home(ArticleRepository $articleRepository)
     {
-        return $this->render('blog/home.html.twig');
+        $lastArticle = $articleRepository->findBy(array(), array('id' => 'DESC'),3);
+
+        return $this->render('blog/home.html.twig', [
+            'articles' => $lastArticle
+        ]);
     }
 
     /**
